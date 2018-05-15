@@ -1,34 +1,12 @@
-'use strict';
-
 /* ADVENT OF CODE - https://adventofcode.com/2016/day/2 */
 
-// 1 2 3  -  1 1   1 2   1 3
-// 4 5 6  -  2 1   2 2   2 3
-// 7 8 9  -  3 1   3 2   3 3
+'use strict';
 
-// reference: http://www.mattzeunert.com/2017/02/01/implementing-a-hash-table-in-javascript.html for reference
-class HashTable {
-  constructor(obj) {
-    this.length = 0;
-    this.items = {};
-    for (var i in obj) {
-      if (obj.hasOwnProperty(i)) {
-        this.items[i] = obj[i];
-        this.length++;
-      }
-    }
-  }
+const HashTable = require('./lib/hashtable.js').HashTable;
 
-  hasItem(key) {
-    return this.items.hasOwnProperty(key);
-  }
+module.exports = exports = {};
 
-  getItem(key) {
-    return this.hasItem(key) ? this.items[key] : undefined;
-  }
-}
-
-let table = new HashTable({
+exports.table = new HashTable({
   '1 1': 1,
   '1 2': 2,
   '1 3': 3,
@@ -38,9 +16,9 @@ let table = new HashTable({
   '3 1': 7,
   '3 2': 8,
   '3 3': 9,
-})
+});
 
-const findCode = (clues, start) => {
+exports.findCode = (table, clues, start) => {
   let code = [];
   let current = start.split(' ');
 
@@ -82,10 +60,7 @@ const findCode = (clues, start) => {
         }
       }
     }
-    code.push(table.getItem(current.join(' ')))
+    code.push(table.getItem(current.join(' ')));
   }
-  return code.join(',');
-}
-
-let clues = ['ULL', 'RRDDD', 'LURDL', 'UUUUD'];
-findCode(clues, '2 2');
+  return code.join('');
+};
